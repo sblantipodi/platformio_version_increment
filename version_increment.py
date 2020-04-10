@@ -45,5 +45,5 @@ if upload:
     with open(VERSION_FILE, 'w+') as f:
         f.write(hf)
 else:  
-    print("Version Increment Script. Nothing to do. ARGS=")
+    print("Version Increment Script... Nothing to do. ARGS=")
     print (sys.argv[1:])
