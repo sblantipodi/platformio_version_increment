@@ -30,4 +30,4 @@ In the Version.h file you'll have this:
 #endif
 ```    
 
-use the variables as you desire.
+use variables as you desire.
