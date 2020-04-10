@@ -24,7 +24,7 @@ if upload:
     try:
         with open(BUILD_NUMBER) as f:
             build_no = f.readline()
-            build_no = build_no[0:build_no.rindex('.')]
+            version = build_no[0:build_no.rindex('.')+1]
             build_no = int(build_no[build_no.rindex('.')+1:]) + 1 
     except:
         print('No version file found or incorrect data in it. Starting from 0.1.0')
