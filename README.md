@@ -1,5 +1,5 @@
 # Platformio Version Increment
-Simple version increment script for Platformio.
+Simple version increment script for Platformio.  
 DPsoftware (Davide Perini)  
 
 Platformio does not have a tool to automatically increment the version number of an app when building it or when uploading it to a microcontroller so I decided to write a script to do it.
