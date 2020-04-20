@@ -1,6 +1,18 @@
 # Platformio Version Increment
 Simple version increment script for Platformio.  
-DPsoftware (Davide Perini)  
+_Written for Arduino IDE and PlatformIO._
+
+[![GitHub version](https://img.shields.io/github/v/release/sblantipodi/solar_station.svg)](https://img.shields.io/github/v/release/sblantipodi/solar_station.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sblantipodi/solar_station/graphs/commit-activity)
+
+If you like **Platformio Version Increment**, give it a star, or fork it and contribute!
+
+[![GitHub stars](https://img.shields.io/github/stars/sblantipodi/solar_station.svg?style=social&label=Star)](https://github.com/sblantipodi/solar_station/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/sblantipodi/solar_station.svg?style=social&label=Fork)](https://github.com/sblantipodi/solar_station/network)
+
+## Credits
+- Davide Perini
 
 Platformio does not have a tool to automatically increment the version number of an app when building it or when uploading it to a microcontroller so I decided to write a script to do it.
 
@@ -32,5 +44,7 @@ In the Version.h file you'll have this:
   #define BUILD_TIMESTAMP "2020-04-10 17:58:52.937616"
 #endif
 ```    
-
 use variables as you desire.
+
+## License
+This program is licensed under MIT License
