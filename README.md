@@ -2,14 +2,14 @@
 Simple version increment script for Platformio.  
 _Written for Arduino IDE and PlatformIO._
 
-[![GitHub version](https://img.shields.io/github/v/release/sblantipodi/solar_station.svg)](https://img.shields.io/github/v/release/sblantipodi/solar_station.svg)
+[![GitHub version](https://img.shields.io/github/v/release/sblantipodi/platformio_version_increment.svg)](https://img.shields.io/github/v/release/sblantipodi/platformio_version_increment.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sblantipodi/solar_station/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sblantipodi/platformio_version_increment/graphs/commit-activity)
 
 If you like **Platformio Version Increment**, give it a star, or fork it and contribute!
 
-[![GitHub stars](https://img.shields.io/github/stars/sblantipodi/solar_station.svg?style=social&label=Star)](https://github.com/sblantipodi/solar_station/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/sblantipodi/solar_station.svg?style=social&label=Fork)](https://github.com/sblantipodi/solar_station/network)
+[![GitHub stars](https://img.shields.io/github/stars/sblantipodi/platformio_version_increment.svg?style=social&label=Star)](https://github.com/sblantipodi/platformio_version_increment/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/sblantipodi/platformio_version_increment.svg?style=social&label=Fork)](https://github.com/sblantipodi/platformio_version_increment/network)
 
 ## Credits
 - Davide Perini
