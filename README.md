@@ -6,6 +6,7 @@ _Platformio does not have a tool to automatically increment the version number o
 [![GitHub version](https://img.shields.io/github/v/release/sblantipodi/platformio_version_increment.svg)](https://img.shields.io/github/v/release/sblantipodi/platformio_version_increment.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sblantipodi/platformio_version_increment/graphs/commit-activity)
+[![DPsoftware](https://img.shields.io/static/v1?label=DP&message=Software&color=orange)](https://www.dpsoftware.org)
 
 If you like **Platformio Version Increment**, give it a star, or fork it and contribute!
 
