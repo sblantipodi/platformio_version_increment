@@ -24,7 +24,7 @@ extra_scripts = pre:platformio_version_increment/version_increment.py
 
 from the root of your project run
 ```
-git submodule add git@github.com:sblantipodi/platformio_version_increment.git platformio_version_increment
+git submodule add https://github.com/sblantipodi/platformio_version_increment.git platformio_version_increment
 ```
 
 upload your software to your microcontroller, in the root of your project you will find two files:
