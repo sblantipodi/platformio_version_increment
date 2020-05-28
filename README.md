@@ -47,5 +47,7 @@ In the `Version.h` file (which you'll need to include in order to access the inc
 ```    
 use variables as you desire.
 
+Note: This script does not check for a successfull upload, in the case of an upload failure, please discard the increment manually.
+
 ## License
 This program is licensed under MIT License
