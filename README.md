@@ -17,9 +17,11 @@ If you like **Platformio Version Increment**, give it a star, or fork it and con
 - Davide Perini
 
 ## How To
-To use it please add this line in your platformio.ini
+To use it please the following in your `platformio.ini`:
 ```
-extra_scripts = pre:platformio_version_increment/version_increment.py
+extra_scripts = 
+   pre:platformio_version_increment/version_increment_pre.py
+   post:platformio_version_increment/version_increment_post.py
 ```
 
 from the root of your project run
@@ -33,7 +35,7 @@ upload your software to your microcontroller, in the root of your project you wi
 
 The `version` file by default will have `0.1.0`, but you can edit it with the version number you wish to start incrementing from.
 
-Every upload will trigger a +1 on the hotfix number.
+Every completed upload will trigger a +1 on the hotfix number.
 
 In the `Version.h` file (which you'll need to include in order to access the incrementing version and timestamp variables) you'll have this:
 ```c++
