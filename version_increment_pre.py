@@ -27,19 +27,19 @@ Import("env")
 VERSION_FILE = 'version'
 VERSION_HEADER = 'Version.h'
 VERSION_PREFIX = '0.1.'
-VERSION_BUILD_NUMBER = 0
+VERSION_PATCH_NUMBER = 0
 
 try:
     with open(VERSION_FILE) as FILE:
-        VERSION_BUILD_NUMBER = FILE.readline()
-        VERSION_PREFIX = VERSION_BUILD_NUMBER[0:VERSION_BUILD_NUMBER.rindex('.')+1]
-        VERSION_BUILD_NUMBER = int(VERSION_BUILD_NUMBER[VERSION_BUILD_NUMBER.rindex('.')+1:])
+        VERSION_PATCH_NUMBER = FILE.readline()
+        VERSION_PREFIX = VERSION_PATCH_NUMBER[0:VERSION_PATCH_NUMBER.rindex('.')+1]
+        VERSION_PATCH_NUMBER = int(VERSION_PATCH_NUMBER[VERSION_PATCH_NUMBER.rindex('.')+1:])
 except:
     print('No version file found or incorrect data in it. Starting from 0.1.0')
-    VERSION_BUILD_NUMBER = 0
+    VERSION_PATCH_NUMBER = 0
 with open(VERSION_FILE, 'w+') as FILE:
-    FILE.write(VERSION_PREFIX + str(VERSION_BUILD_NUMBER))
-    print('Build number: {}'.format(VERSION_PREFIX + str(VERSION_BUILD_NUMBER)))
+    FILE.write(VERSION_PREFIX + str(VERSION_PATCH_NUMBER))
+    print('Build number: {}'.format(VERSION_PREFIX + str(VERSION_PATCH_NUMBER)))
 
 HEADER_FILE = """
 // AUTO GENERATED FILE, DO NOT EDIT
@@ -49,7 +49,7 @@ HEADER_FILE = """
 #ifndef BUILD_TIMESTAMP
     #define BUILD_TIMESTAMP "{}"
 #endif
-""".format(VERSION_PREFIX + str(VERSION_BUILD_NUMBER), datetime.datetime.now())
+""".format(VERSION_PREFIX + str(VERSION_PATCH_NUMBER), datetime.datetime.now())
 
 if os.environ.get('PLATFORMIO_INCLUDE_DIR') is not None:
     VERSION_HEADER = os.environ.get('PLATFORMIO_INCLUDE_DIR') + "/" + VERSION_HEADER
