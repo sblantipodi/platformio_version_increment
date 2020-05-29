@@ -56,7 +56,7 @@ def increment_version(source, target, env):
 
     if (os.environ.get('PLATFORMIO_INCLUDE_DIR') != None):
         VERSION_FILE = os.environ.get('PLATFORMIO_INCLUDE_DIR') + "/" + VERSION_FILE
-    elif os.path.exists("include"):
+    else os.path.exists("include"):
         VERSION_FILE = "include/" + VERSION_FILE
     
     with open(VERSION_FILE, 'w+') as f:

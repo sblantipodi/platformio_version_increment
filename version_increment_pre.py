@@ -54,6 +54,10 @@ if (os.environ.get('PLATFORMIO_INCLUDE_DIR') != None):
     VERSION_FILE = os.environ.get('PLATFORMIO_INCLUDE_DIR') + "/" + VERSION_FILE
 elif os.path.exists("include"):
     VERSION_FILE = "include/" + VERSION_FILE
+else:
+    PROJECT_DIR = env.subst("$PROJECT_DIR")
+    os.mkdir(PROJECT_DIR + "/include")
+    VERSION_FILE = "include/" + VERSION_FILE    
 
 with open(VERSION_FILE, 'w+') as f:
     f.write(hf)
