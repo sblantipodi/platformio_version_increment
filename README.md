@@ -1,14 +1,14 @@
-# Platformio Version Increment
-Simple version increment script for Platformio.  
+# PlatformIO Version Increment
+Simple version increment script for PlatformIO.  
   
-_Platformio does not have a tool to automatically increment the version number of an app when building it or when uploading it to a microcontroller so I decided to write a script to do it._
+_PlatformIO does not have a tool to automatically increment the version number of an app when building it or when uploading it to a microcontroller so I decided to write a script to do it._
 
 [![GitHub version](https://img.shields.io/github/v/release/sblantipodi/platformio_version_increment.svg)](https://img.shields.io/github/v/release/sblantipodi/platformio_version_increment.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/sblantipodi/platformio_version_increment/graphs/commit-activity)
 [![DPsoftware](https://img.shields.io/static/v1?label=DP&message=Software&color=orange)](https://www.dpsoftware.org)
 
-If you like **Platformio Version Increment**, give it a star, or fork it and contribute!
+If you like **PlatformIO Version Increment**, give it a star, or fork it and contribute!
 
 [![GitHub stars](https://img.shields.io/github/stars/sblantipodi/platformio_version_increment.svg?style=social&label=Star)](https://github.com/sblantipodi/platformio_version_increment/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/sblantipodi/platformio_version_increment.svg?style=social&label=Fork)](https://github.com/sblantipodi/platformio_version_increment/network)
