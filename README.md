@@ -52,5 +52,17 @@ In the `Version.h` file (which you'll need to include in order to access the inc
 
 You now have auto-incrementing VERSION and BUILD_TIMESTAMP variables you can use in your program as you wish!
 
+For example:
+```c++
+Serial.println("Project version: " + String(VERSION));
+Serial.println("Build timestamp:" + String(BUILD_TIMESTAMP));
+```
+
+or
+
+```c++
+Serial.printf("Project version v%s, built %s\n",VERSION,BUILD_TIMESTAMP);
+```
+
 ## License
 This program is licensed under MIT License
