@@ -50,7 +50,7 @@ In the `Version.h` file (which you'll need to include in order to access the inc
 #endif
 ```    
 
-Consequently, you can now have auto-incrementing VERSION and BUILD_TIMESTAMP variables you can use in your program as you wish. 
+You now have auto-incrementing VERSION and BUILD_TIMESTAMP variables you can use in your program as you wish!
 
 ## License
 This program is licensed under MIT License
