@@ -52,7 +52,7 @@ def increment_version(source, target, env):
     #ifndef BUILD_TIMESTAMP
       #define BUILD_TIMESTAMP "{}"
     #endif
-    """.format(version + str(build_no), datetime.datetime.now(), version+str(build_no))
+    """.format(version + str(build_no), datetime.datetime.now())
 
     if (os.environ.get('PLATFORMIO_INCLUDE_DIR') != None):
         VERSION_FILE = os.environ.get('PLATFORMIO_INCLUDE_DIR') + "/" + VERSION_FILE
