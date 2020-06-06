@@ -55,11 +55,11 @@ if not os.path.exists(".version_no_increment"):
     if os.environ.get('PLATFORMIO_INCLUDE_DIR') is not None:
         VERSION_HEADER = os.environ.get('PLATFORMIO_INCLUDE_DIR') + "/" + VERSION_HEADER
     elif os.path.exists("include"):
-        VERSION_HEADER = "include/" + VERSION_HEADER
+        VERSION_HEADER = "include" + os.sep + VERSION_HEADER
     else:
         PROJECT_DIR = env.subst("$PROJECT_DIR")
-        os.mkdir(PROJECT_DIR + "/include")
-        VERSION_HEADER = "include/" + VERSION_HEADER
+        os.mkdir(PROJECT_DIR + os.sep + "include")
+        VERSION_HEADER = "include" + os.sep + VERSION_HEADER
 
     with open(VERSION_HEADER, 'w+') as FILE:
         FILE.write(HEADER_FILE)
