@@ -53,7 +53,7 @@ if not os.path.exists(".version_no_increment"):
     """.format(VERSION_PREFIX + str(VERSION_PATCH_NUMBER), datetime.datetime.now())
 
     if os.environ.get('PLATFORMIO_INCLUDE_DIR') is not None:
-        VERSION_HEADER = os.environ.get('PLATFORMIO_INCLUDE_DIR') + "/" + VERSION_HEADER
+        VERSION_HEADER = os.environ.get('PLATFORMIO_INCLUDE_DIR') + os.sep + VERSION_HEADER
     elif os.path.exists("include"):
         VERSION_HEADER = "include" + os.sep + VERSION_HEADER
     else:
