@@ -66,3 +66,9 @@ Serial.printf("Project version v%s, built %s\n",VERSION,BUILD_TIMESTAMP);
 
 ## License
 This program is licensed under MIT License
+
+## Thanks To 
+|  Thanks              |  For                           |
+|----------------------|--------------------------------|
+|<a href="https://www.jetbrains.com/"><img width="200" src="https://raw.githubusercontent.com/sblantipodi/arduino_bootstrapper/master/data/img/jetbrains.png"></a>| For the <a href="https://www.jetbrains.com/pycharm">PyCharm IDE</a> licenses.|
+
