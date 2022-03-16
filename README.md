@@ -26,6 +26,7 @@ git submodule add https://github.com/sblantipodi/platformio_version_increment.gi
 ```
 extra_scripts = 
    pre:platformio_version_increment/version_increment_pre.py
+   post:platformio_version_increment/esp32_create_factory_bin_post.py // bundle all files in one factory firmware bin
    post:platformio_version_increment/version_increment_post.py
 ```
 
