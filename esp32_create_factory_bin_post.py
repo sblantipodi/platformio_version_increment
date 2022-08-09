@@ -1,6 +1,5 @@
 Import("env")
 
-#
 #  Copyright (C) 2022  Davide Perini
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -16,25 +15,57 @@ Import("env")
 #  You should have received a copy of the MIT License along with this program.
 #  If not, see <https://opensource.org/licenses/MIT/>.
 #
+#
 
-def esp32_create_factory_bin(source, target, env):
-    print("Generating factory bin for genuine esp units")
-    #offset = 0x1000
-    offset = 0x0
+platform = env.PioPlatform()
+
+import sys
+from os.path import join
+
+sys.path.append(join(platform.get_package_dir("tool-esptoolpy")))
+import esptool
+
+def esp32_create_combined_bin(source, target, env):
+    print("Generating combined binary for serial flashing")
+
+    # The offset from begin of the file where the app0 partition starts
+    # This is defined in the partition .csv file
+    app_offset = 0x10000
+
     new_file_name = env.subst("$BUILD_DIR/${PROGNAME}-factory.bin")
-    sections = env.subst(env.get('FLASH_EXTRA_IMAGES'))
-    new_file = open(new_file_name,"wb")
+    sections = env.subst(env.get("FLASH_EXTRA_IMAGES"))
+    firmware_name = env.subst("$BUILD_DIR/${PROGNAME}.bin")
+    chip = env.get("BOARD_MCU")
+    flash_size = env.BoardConfig().get("upload.flash_size")
+    flash_freq = env.BoardConfig().get("build.f_flash", '40m')
+    flash_freq = flash_freq.replace('000000L', 'm')
+    flash_mode = env.BoardConfig().get("build.flash_mode")
+    cmd = [
+        "--chip",
+        chip,
+        "merge_bin",
+        "-o",
+        new_file_name,
+        "--flash_mode",
+        flash_mode,
+        "--flash_freq",
+        flash_freq,
+        "--flash_size",
+        flash_size,
+    ]
+
+    print("    Offset | File")
     for section in sections:
-        sect_adr,sect_file = section.split(" ",1)
-        source = open(sect_file,"rb")
-        new_file.seek(int(sect_adr,0)-offset)
-        new_file.write(source.read());
-        source.close()
+        sect_adr, sect_file = section.split(" ", 1)
+        print(f" -  {sect_adr} | {sect_file}")
+        cmd += [sect_adr, sect_file]
 
-    firmware = open(env.subst("$BUILD_DIR/${PROGNAME}.bin"),"rb")
-    new_file.seek(0x10000-offset)
-    new_file.write(firmware.read())
-    new_file.close()
-    firmware.close()
+    print(f" - {hex(app_offset)} | {firmware_name}")
+    cmd += [hex(app_offset), firmware_name]
 
-env.AddPostAction("$BUILD_DIR/${PROGNAME}.bin", esp32_create_factory_bin)
+    print('Using esptool.py arguments: %s' % ' '.join(cmd))
+
+    esptool.main(cmd)
+
+
+env.AddPostAction("$BUILD_DIR/${PROGNAME}.bin", esp32_create_combined_bin)
