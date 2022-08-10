@@ -7,7 +7,6 @@ from genericpath import exists
 import os
 import sys
 from os.path import join
-import csv
 import requests
 import shutil
 import subprocess
@@ -54,24 +53,6 @@ def esp32_build_filesystem(fs_size):
     # print(returncode)
     return True
 
-def esp32_fetch_safeboot_bin(tasmota_platform):
-    safeboot_fw_url = "http://ota.tasmota.com/tasmota32/release/" + tasmota_platform + "-safeboot.bin"
-    safeboot_fw_name = join(variants_dir, tasmota_platform + "-safeboot.bin")
-    if(exists(safeboot_fw_name)):
-        print("safeboot binary already in place.")
-        return
-    print("Will download safeboot binary from URL:")
-    print(safeboot_fw_url)
-    response = requests.get(safeboot_fw_url)
-    open(safeboot_fw_name, "wb").write(response.content)
-    print("safeboot binary written to variants dir.")
-
-def esp32_copy_new_safeboot_bin(tasmota_platform,new_local_safeboot_fw):
-    print("Copy new local safeboot firmware to variants dir -> using it for further flashing operations")
-    safeboot_fw_name = join(variants_dir, tasmota_platform + "-safeboot.bin")
-    if os.path.exists(variants_dir):
-        shutil.copy(new_local_safeboot_fw, safeboot_fw_name)
-
 def esp32_create_combined_bin(source, target, env):
     #print("Generating combined binary for serial flashing")
 
@@ -80,37 +61,11 @@ def esp32_create_combined_bin(source, target, env):
     # factory_offset = -1      # error code value - currently unused
     app_offset = 0x10000     # default value for "old" scheme
     fs_offset = -1           # error code value
-    # with open(env.BoardConfig().get("build.partitions")) as csv_file:
-    #     print("Read partitions from ",env.BoardConfig().get("build.partitions"))
-    #     csv_reader = csv.reader(csv_file, delimiter=',')
-    #     line_count = 0
-    #     for row in csv_reader:
-    #         if line_count == 0:
-    #             print(f'{",  ".join(row)}')
-    #             line_count += 1
-    #         else:
-    #             print(f'{row[0]}   {row[1]}   {row[2]}   {row[3]}   {row[4]}')
-    #             line_count += 1
-    #             if(row[0] == 'app0'):
-    #                 app_offset = int(row[3],base=16)
-    #             # elif(row[0] == 'factory'):
-    #             #     factory_offset = int(row[3],base=16)
-    #             elif(row[0] == 'spiffs'):
-    #                 if esp32_build_filesystem(row[4]):
-    #                     fs_offset = int(row[3],base=16)
-
-
     new_file_name = env.subst("$BUILD_DIR/${PROGNAME}-factory.bin")
     sections = env.subst(env.get("FLASH_EXTRA_IMAGES"))
     firmware_name = env.subst("$BUILD_DIR/${PROGNAME}.bin")
     chip = env.get("BOARD_MCU")
     tasmota_platform = esp32_create_chip_string(chip)
-    if not os.path.exists(variants_dir):
-        os.makedirs(variants_dir)
-    if("safeboot" in firmware_name):
-        esp32_copy_new_safeboot_bin(tasmota_platform,firmware_name)
-    else:
-        esp32_fetch_safeboot_bin(tasmota_platform)
     flash_size = env.BoardConfig().get("upload.flash_size", "4MB")
     flash_freq = env.BoardConfig().get("build.f_flash", "40000000L")
     flash_freq = str(flash_freq).replace("L", "")
@@ -145,9 +100,6 @@ def esp32_create_combined_bin(source, target, env):
         print(f" - {hex(app_offset)} | {firmware_name}")
         cmd += [hex(app_offset), firmware_name]
 
-    else:
-        print("Upload new safeboot binary only")
-
     if(fs_offset != -1):
         fs_bin = join(env.subst("$BUILD_DIR"),"littlefs.bin")
         if exists(fs_bin):
@@ -174,6 +126,5 @@ def esp32_create_combined_bin(source, target, env):
     # print('Using esptool.py arguments: %s' % ' '.join(cmd))
 
     esptool.main(cmd)
-
 
 env.AddPostAction("$BUILD_DIR/${PROGNAME}.bin", esp32_create_combined_bin)
