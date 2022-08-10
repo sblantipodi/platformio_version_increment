@@ -1,5 +1,7 @@
 #
 #  Copyright (C) 2022  Davide Perini
+#  Thanks to TD-er (ESPeasy) and to Jason2866 (Tasmota),
+#  this script, takes inspiration from their post_esp32.py script
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy of
 #  this software and associated documentation files (the "Software"), to deal
@@ -20,7 +22,6 @@ env = DefaultEnvironment()
 platform = env.PioPlatform()
 
 from genericpath import exists
-import os
 import sys
 from os.path import join
 
