@@ -1,3 +1,19 @@
+#
+#  Copyright (C) 2022  Davide Perini
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy of
+#  this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in
+#  all copies or substantial portions of the Software.
+#
+#  You should have received a copy of the MIT License along with this program.
+#  If not, see <https://opensource.org/licenses/MIT/>.
+#
 Import("env")
 
 env = DefaultEnvironment()
@@ -7,57 +23,15 @@ from genericpath import exists
 import os
 import sys
 from os.path import join
-import requests
-import shutil
-import subprocess
 
 sys.path.append(join(platform.get_package_dir("tool-esptoolpy")))
 import esptool
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoespressif32")
-variants_dir = join(FRAMEWORK_DIR, "variants", "tasmota")
-
-def esp32_create_chip_string(chip):
-    tasmota_platform = env.subst("$BUILD_DIR").split(os.path.sep)[-1]
-    tasmota_platform = tasmota_platform.split('-')[0]
-    if 'tasmota' + chip[3:] not in tasmota_platform: # quick check for a valid name like 'tasmota' + '32c3'
-        print('Unexpected naming conventions in this build environment -> Undefined behavior for further build process!!')
-        print("Expected build environment name like 'tasmota32-whatever-you-want'")
-    return tasmota_platform
-
-def esp32_build_filesystem(fs_size):
-    files = env.GetProjectOption("custom_files_upload").splitlines()
-    filesystem_dir = join(env.subst("$BUILD_DIR"),"littlefs_data")
-    if not os.path.exists(filesystem_dir):
-        os.makedirs(filesystem_dir)
-    print("Creating filesystem with content:")
-    for file in files:
-        if "no_files" in file:
-            continue
-        if "http" and "://" in file:
-            response = requests.get(file)
-            if response.ok:
-                target = join(filesystem_dir,file.split(os.path.sep)[-1])
-                open(target, "wb").write(response.content)
-            else:
-                print("Failed to download: ",file)
-            continue
-        shutil.copy(file, filesystem_dir)
-    if not os.listdir(filesystem_dir):
-        print("No files added -> will NOT create littlefs.bin and NOT overwrite fs partition!")
-        return False
-    env.Replace( MKSPIFFSTOOL=platform.get_package_dir("tool-mklittlefs") + '/mklittlefs' )
-    tool = env.subst(env["MKSPIFFSTOOL"])
-    cmd = (tool,"-c",filesystem_dir,"-s",fs_size,join(env.subst("$BUILD_DIR"),"littlefs.bin"))
-    returncode = subprocess.call(cmd, shell=False)
-    # print(returncode)
-    return True
+variants_dir = join(FRAMEWORK_DIR, "variants", "luciferin")
 
 def esp32_create_combined_bin(source, target, env):
     #print("Generating combined binary for serial flashing")
-
-    # The offset from begin of the file where the app0 partition starts
-    # This is defined in the partition .csv file
     # factory_offset = -1      # error code value - currently unused
     app_offset = 0x10000     # default value for "old" scheme
     fs_offset = -1           # error code value
@@ -65,7 +39,6 @@ def esp32_create_combined_bin(source, target, env):
     sections = env.subst(env.get("FLASH_EXTRA_IMAGES"))
     firmware_name = env.subst("$BUILD_DIR/${PROGNAME}.bin")
     chip = env.get("BOARD_MCU")
-    tasmota_platform = esp32_create_chip_string(chip)
     flash_size = env.BoardConfig().get("upload.flash_size", "4MB")
     flash_freq = env.BoardConfig().get("build.f_flash", "40000000L")
     flash_freq = str(flash_freq).replace("L", "")
@@ -95,10 +68,9 @@ def esp32_create_combined_bin(source, target, env):
         print(f" -  {sect_adr} | {sect_file}")
         cmd += [sect_adr, sect_file]
 
-    # "main" firmware to app0 - mandatory, except we just built a new safeboot bin locally
-    if("safeboot" not in firmware_name):
-        print(f" - {hex(app_offset)} | {firmware_name}")
-        cmd += [hex(app_offset), firmware_name]
+    # "main" firmware to app0 - mandatory
+    print(f" - {hex(app_offset)} | {firmware_name}")
+    cmd += [hex(app_offset), firmware_name]
 
     if(fs_offset != -1):
         fs_bin = join(env.subst("$BUILD_DIR"),"littlefs.bin")
