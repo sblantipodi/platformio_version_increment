@@ -29,6 +29,10 @@ VERSION_HEADER = 'Version.h'
 VERSION_PREFIX = '0.1.'
 VERSION_PATCH_NUMBER = 0
 
+if env.IsIntegrationDump():
+   # stop the current script execution
+   Return()
+
 if not os.path.exists(".version_no_increment"):
     try:
         with open(VERSION_FILE) as FILE:
