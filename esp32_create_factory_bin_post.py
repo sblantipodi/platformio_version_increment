@@ -52,14 +52,14 @@ def esp32_create_combined_bin(source, target, env):
     cmd = [
         "--chip",
         chip,
-        "merge_bin",
+        "merge-bin",
         "-o",
         new_file_name,
-        "--flash_mode",
+        "--flash-mode",
         flash_mode,
-        "--flash_freq",
+        "--flash-freq",
         flash_freq,
-        "--flash_size",
+        "--flash-size",
         flash_size,
     ]
 
@@ -88,9 +88,9 @@ def esp32_create_combined_bin(source, target, env):
                     "--before", before_reset,
                     "--after", after_reset,
                     "write_flash", "-z",
-                    "--flash_mode", "${__get_board_flash_mode(__env__)}",
-                    "--flash_freq", "${__get_board_f_flash(__env__)}",
-                    "--flash_size", flash_size
+                    "--flash-mode", "${__get_board_flash_mode(__env__)}",
+                    "--flash-freq", "${__get_board_f_flash(__env__)}",
+                    "--flash-size", flash_size
                 ],
                 UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS ' + " ".join(cmd[7:])
             )
