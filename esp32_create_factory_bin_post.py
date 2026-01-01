@@ -1,5 +1,5 @@
 #
-#  Copyright (C) 2022  Davide Perini
+#  Copyright © 2022 - 2026  Davide Perini
 #  Thanks to TD-er (ESPeasy) and to Jason2866 (Tasmota),
 #  this script, takes inspiration from their post_esp32.py script
 #
